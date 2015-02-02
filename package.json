@@ -4,7 +4,8 @@
   "description": "Core of Arus",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --progress --colors --watch",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,20 @@
   "bugs": {
     "url": "https://github.com/arus/black-lion/issues"
   },
-  "homepage": "https://github.com/arus/black-lion"
+  "homepage": "https://github.com/arus/black-lion",
+  "dependencies": {
+    "convict": "^0.6.1",
+    "reflux": "^0.2.4",
+    "superagent": "^0.21.0",
+    "xml2js": "^0.4.4"
+  },
+  "devDependencies": {
+    "6to5-core": "^3.3.4",
+    "6to5-loader": "^3.0.0",
+    "chai": "^1.10.0",
+    "chai-as-promised": "^4.1.1",
+    "mocha": "^2.1.0",
+    "webpack": "^1.5.3",
+    "webpack-dev-server": "^1.7.0"
+  }
 }
