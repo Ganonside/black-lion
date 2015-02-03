@@ -22,7 +22,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.(?:js|jsx)$/, loader: "6to5-loader", exclude: /node_modules/}
+      {test: /\.(?:js|jsx)$/, loader: "6to5-loader"}
     ]
   },
   plugins: [

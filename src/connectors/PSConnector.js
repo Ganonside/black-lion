@@ -5,7 +5,7 @@ class PSConnector {
   static getProfile() {
     return new Promise((resolve, reject) => {
       request
-        .get(__ENPOINT_URL__)
+        .get(__ENDPOINT_URL__)
         .auth(__USERNAME__, __PASSWORD__)
         .set('application/json')
         .end(res => {
