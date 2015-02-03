@@ -5,7 +5,7 @@ class PSConnector {
   static getProfile() {
     return new Promise((resolve, reject) => {
       request
-        .get(__ENDPOINT_URL__)
+        .get(__PROFILE_URL__)
         .auth(__USERNAME__, __PASSWORD__)
         .set('application/json')
         .end(res => {
@@ -14,7 +14,6 @@ class PSConnector {
             parseString(res.text, (err, parsed) => {
               jRes = parsed;
             });
-            console.log('jRes', jRes);
             resolve(jRes);
           } else {
             reject(res);

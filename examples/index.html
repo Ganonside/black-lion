@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Lion Example</title>
+  </head>
+  <body>
+    <div id="black-lion"></div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react-with-addons.js"></script>
+    <script src="../build/BlackLion.js"></script>
+    <script src="../build/BLExample.js"></script>
+    <script>
+      React.render(
+        BLExample(),
+        document.getElementById('black-lion')
+      );
+    </script>
+  </body>
+</html>

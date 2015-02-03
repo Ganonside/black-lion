@@ -1,9 +1,7 @@
 var convict = require('convict');
 var fs = require('fs');
 
-var env = process.env.NODE_ENV || "development";
-
-console.log("Environment is " + env);
+var env = process.env.NODE_ENV || "test";
 
 var conf = convict({
   env: {
@@ -12,10 +10,10 @@ var conf = convict({
     default: "development",
     env: "NODE_ENV"
   },
-  endpoint: {
+  getProfileUrl: {
     doc: "The REST Endpoint to call.",
     default: "",
-    env: "ENDPOINT_URL"
+    env: "PROFILE_URL"
   },
   username: {
     doc: "Endpoint username",
@@ -36,11 +34,6 @@ if (fs.existsSync(__dirname + '/' + env + '.json')){
   //either pull data from mongo or serve 404 error
   console.log('Config file not found, using ENV');
 };
-
-
-
-
-
 
 conf.validate();
 
