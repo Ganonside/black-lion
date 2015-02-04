@@ -8,7 +8,7 @@
     "build-dev": "set NODE_ENV=development&& webpack --progress --colors --watch",
     "build-prod": "set NODE_ENV=production&& webpack --progress --colors -p",
     "build-test": "set NODE_ENV=test&& webpack --progress --colors",
-    "start": "webpack-dev-server --progress --colors && webpack --progress --colors --watch",
+    "start": "webpack-dev-server --progress --colors",
     "test": "mocha"
   },
   "repository": {
