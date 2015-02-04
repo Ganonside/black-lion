@@ -4,7 +4,16 @@
   "description": "Core of Arus",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+    "build": "webpack --progress --colors --watch",
+    "build-dev": "set NODE_ENV=development&& webpack --progress --colors --watch",
+    "build-prod": "set NODE_ENV=production&& webpack --progress --colors -p",
+    "build-test": "set NODE_ENV=test&& webpack --progress --colors",
+    "start": "webpack-dev-server --progress --colors",
+    "test": "mocha"
+>>>>>>> 35e2d71... created an example using reflux
   },
   "repository": {
     "type": "git",
