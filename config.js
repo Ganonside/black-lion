@@ -1,7 +1,7 @@
 var convict = require('convict');
 var fs = require('fs');
 
-var env = process.env.NODE_ENV || "test";
+var env = process.env.NODE_ENV || "development";
 
 var conf = convict({
   env: {

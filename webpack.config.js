@@ -28,8 +28,7 @@ var defaultConfig = {
 var devConfig = {
   name: 'development',
   entry: {
-    BlackLion: './src/main.js',
-    BLExample: './examples/components/Example.jsx'
+    BlackLion: './src/main.js'
   },
   output: {
     libraryTarget: 'var',
