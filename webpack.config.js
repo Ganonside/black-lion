@@ -7,28 +7,27 @@ console.log("Environment is " + env);
 
 var defaultConfig = {
   externals: {
-    "react": "React"
+
   },
   module: {
     loaders: [{
-      test: /\.(?:js|jsx)$/, loader: "6to5-loader", exclude: /node_modules/
+      test: /\.(?:js|jsx)$/, loader: "react-hot!6to5-loader"
     }]
   },
   plugins: [
     new webpack.DefinePlugin({
-      '__DEV__': JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
-      '__PROD__': JSON.stringify(JSON.parse(process.env.BUILD_PROD || 'false')),
-      '__TEST__': JSON.stringify(JSON.parse(process.env.BUILD_TEST || 'false')),
       '__USERNAME__': JSON.stringify(config.get('username')),
       '__PASSWORD__': JSON.stringify(config.get('password')),
       '__PROFILE_URL__': JSON.stringify(config.get('getProfileUrl'))
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ]
 };
 var devConfig = {
   name: 'development',
   entry: {
-    BlackLion: './src/main.js'
+    BlackLion: ['webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server', './src/main.js']
   },
   output: {
     libraryTarget: 'var',

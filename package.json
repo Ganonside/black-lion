@@ -8,7 +8,7 @@
     "build-dev": "set NODE_ENV=development&& webpack --progress --colors --watch",
     "build-prod": "set NODE_ENV=production&& webpack --progress --colors -p",
     "build-test": "set NODE_ENV=test&& webpack --progress --colors",
-    "start": "webpack-dev-server --progress --colors",
+    "start": "webpack-dev-server --progress --colors --hot",
     "test": "mocha"
   },
   "repository": {
@@ -23,5 +23,12 @@
   "bugs": {
     "url": "https://github.com/arus/black-lion/issues"
   },
-  "homepage": "https://github.com/arus/black-lion"
+  "homepage": "https://github.com/arus/black-lion",
+  "dependencies": {
+    "bl-ps-connector": "git+https://github.com/Ganonside/bl-ps-connector.git#v0.2.5-alpha"
+  },
+  "devDependencies": {
+    "react": "^0.12.2",
+    "react-hot-loader": "^1.1.4"
+  }
 }
