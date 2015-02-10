@@ -23,5 +23,18 @@
   "bugs": {
     "url": "https://github.com/arus/black-lion/issues"
   },
-  "homepage": "https://github.com/arus/black-lion"
+  "homepage": "https://github.com/arus/black-lion",
+  "dependencies": {
+    "bl-ps-connector": "git+https://github.com/Ganonside/bl-ps-connector.git#v0.2.5-alpha",
+    "react": "^0.12.2",
+    "xml2js": "^0.4.5"
+  },
+  "devDependencies": {
+    "6to5": "^3.5.3",
+    "6to5-loader": "^3.0.0",
+    "convict": "^0.6.1",
+    "react-hot-loader": "^1.1.4",
+    "webpack": "^1.5.3",
+    "webpack-dev-server": "^1.7.0"
+  }
 }
