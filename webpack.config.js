@@ -11,7 +11,7 @@ var defaultConfig = {
   },
   module: {
     loaders: [{
-      test: /\.(?:js|jsx)$/, loader: "6to5-loader", exclude: /node_modules/
+      test: /\.(?:js|jsx)$/, loader: "6to5-loader"
     }]
   },
   plugins: [
@@ -44,7 +44,7 @@ var devConfig = {
 var prodConfig = {
   name: 'production',
   entry: {
-    BlackLion: 'index.js'
+    BlackLion: './index.js'
   },
   output: {
     libraryTarget: 'var',
