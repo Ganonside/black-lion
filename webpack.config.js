@@ -14,14 +14,15 @@ var defaultConfig = {
       test: /\.(?:js|jsx)$/, loader: "6to5-loader"
     }]
   },
+  /**
+   * TODO: remove plugins, they aren't needed because they get passed in by arus-main
+   */
   plugins: [
     new webpack.DefinePlugin({
-      '__DEV__': JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
-      '__PROD__': JSON.stringify(JSON.parse(process.env.BUILD_PROD || 'false')),
-      '__TEST__': JSON.stringify(JSON.parse(process.env.BUILD_TEST || 'false')),
       '__USERNAME__': JSON.stringify(config.get('username')),
       '__PASSWORD__': JSON.stringify(config.get('password')),
-      '__PROFILE_URL__': JSON.stringify(config.get('getProfileUrl'))
+      '__PROFILE_URL__': JSON.stringify(config.get('getProfileUrl')),
+      '__PICTURE_URL__': JSON.stringify(config.get('getPictureUrl'))
     })
   ]
 };
@@ -41,7 +42,7 @@ var devConfig = {
   module: defaultConfig.module,
   plugins: defaultConfig.plugins
 };
-var prodConfig = {
+var prodConfig = { // Not really needed since production doesn't use a bundled js file
   name: 'production',
   entry: {
     BlackLion: './index.js'

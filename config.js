@@ -11,9 +11,14 @@ var conf = convict({
     env: "NODE_ENV"
   },
   getProfileUrl: {
-    doc: "The REST Endpoint to call.",
+    doc: "The REST Endpoint for profile info.",
     default: "",
     env: "PROFILE_URL"
+  },
+  getPictureUrl: {
+    doc: "The REST Endpoint for a profile picture",
+    default: "",
+    env: "PICTURE_URL"
   },
   username: {
     doc: "Endpoint username",
