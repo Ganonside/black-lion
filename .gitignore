@@ -25,16 +25,7 @@ $RECYCLE.BIN/
 # App specific
 *.log
 node_modules/
-src/lib/
-out/
-lib/components/
 .tmp
+
 development.json
-production.json
 test.json
-
-
-# Generated files
-build/
-release/
-test/build/

@@ -1,23 +1,18 @@
 {
   "name": "black-lion",
-  "version": "0.1.0-alpha",
+  "version": "0.2.1-alpha",
   "description": "Core of Arus",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress --colors --watch",
-    "build-dev": "set NODE_ENV=development&& webpack --progress --colors --watch",
-    "build-prod": "set NODE_ENV=production&& webpack --progress --colors -p",
-    "build-test": "set NODE_ENV=test&& webpack --progress --colors",
-    "start": "webpack-dev-server --progress --colors",
-    "test": "mocha"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/arus/black-lion.git"
   },
   "keywords": [
-    "reactjs",
-    "flux"
+    "arus",
+    "reflux"
   ],
   "license": "GPL 3.0",
   "bugs": {
@@ -25,16 +20,6 @@
   },
   "homepage": "https://github.com/arus/black-lion",
   "dependencies": {
-    "bl-ps-connector": "git+https://github.com/Ganonside/bl-ps-connector.git#v0.3.0-alpha",
-    "react": "^0.12.2",
-    "xml2js": "^0.4.5"
-  },
-  "devDependencies": {
-    "6to5": "^3.5.3",
-    "6to5-loader": "^3.0.0",
-    "convict": "^0.6.1",
-    "react-hot-loader": "^1.1.4",
-    "webpack": "^1.5.3",
-    "webpack-dev-server": "^1.7.0"
+    "reflux": "^0.2.5"
   }
 }
