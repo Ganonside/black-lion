@@ -127,6 +127,8 @@ var EventStore = Reflux.createStore({
 
     var trigger = this.trigger.bind(this);
 
+    debugger;
+
     connector.getEvents.apply(connector, args)
       .then(trigger)
       .catch(function(err) {
@@ -139,23 +141,22 @@ var EventStore = Reflux.createStore({
    */
   onChangeReadStatus: function(connector) {
     var args = [];
-    for (var i = 1; i < arguments.length; i++) {
+    for (var i = 0; i < arguments.length; i++) {
       args.push(arguments[i]);
     }
 
-    var onLoad = this.onLoad.call(this, connector);
+    debugger;
+    // var onLoad = this.onLoad.call(this, connector);
 
-    connector.changeReadStatus.apply(connector, args)
-      .then(onLoad)
+    connector.changeReadStatus.apply(connector, args.slice(1))
+      .then(this.onLoad.apply(this, args))
       .catch(function(err) {
         console.log(err.stack);
       });
   }
 });
 
-
-
-module.exports = {
+var modules = {
   'ProfileActions': ProfileActions,
   'ProfileStore': ProfileStore,
   'PictureActions': PictureActions,
@@ -167,3 +168,10 @@ module.exports = {
   'EventActions': EventActions,
   'EventStore': EventStore
 };
+
+if (__ENV__ === 'test') {
+  modules.Connector = require('arus-ps-connector');
+}
+console.log(__ENV__);
+console.log('Exporting:');
+module.exports = modules;
