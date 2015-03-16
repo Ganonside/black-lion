@@ -143,11 +143,10 @@ var EventStore = Reflux.createStore({
       args.push(arguments[i]);
     }
 
-    var onLoad = this.onLoad.call(this, connector);
-
-    connector.changeReadStatus.apply(connector, args)
-      .then(onLoad)
-      .catch(function(err) {
+    connector.changeReadStatus.apply(this, args)
+      .then(function(res) {
+        
+      }).catch(function(err) {
         console.log(err.stack);
       });
   }
