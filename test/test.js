@@ -3,7 +3,7 @@ var assert = chai.assert;
 
 var config = require('../config.js');
 
-var BlackLion = require('./BlackLion.js');
+var BlackLion = require('./build/BlackLion.js');
 var PSConnector = BlackLion.Connector;
 var profileActions = BlackLion.ProfileActions;
 var profileStore = BlackLion.ProfileStore;
@@ -15,8 +15,10 @@ describe('BlackLion', function() {
     it('should return `ok`', function(done) {
       var profileParams = {
         url: JSON.stringify(config.get('getProfileUrl')),
-        auth: [JSON.stringify(config.get('username')), JSON.stringify(config.get('password'))],
-        acceptType: 'application/xml'
+        acceptType: 'application/xml',
+        headers: {
+          Authorization: 'Basic aG9ybmVyam46UGFzc3dvcmQx'
+        }
       };
 
       profileActions.load(PSConnector, profileParams);

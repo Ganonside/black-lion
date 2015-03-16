@@ -25,6 +25,7 @@ $RECYCLE.BIN/
 # App specific
 *.log
 node_modules/
+build/
 .tmp
 
 development.json
