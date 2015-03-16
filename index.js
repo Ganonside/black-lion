@@ -1,12 +1,28 @@
 var Reflux = require('reflux');
 
 /*******************************************
- *                 Profile                 *
+ *                 Actions                 *
  *******************************************/
 var ProfileActions = Reflux.createActions([
   'load'
 ]);
+var PictureActions = Reflux.createActions([
+  'load'
+]);
+var ScheduleActions = Reflux.createActions([
+  'load'
+]);
+var NotificationActions = Reflux.createActions([
+  'load'
+]);
+var EventActions = Reflux.createActions([
+  'load',
+  'changeReadStatus'
+]);
 
+/******************************************
+ *                 Stores                 *
+ ******************************************/
 var ProfileStore = Reflux.createStore({
   listenables: [ProfileActions],
 
@@ -19,22 +35,16 @@ var ProfileStore = Reflux.createStore({
       args.push(arguments[i]);
     }
 
+    var trigger = this.trigger.bind(this);
+
     connector.getProfile.apply(connector, args)
-      .then(function(res) {
-        this.trigger(res);
-      }).catch(function(err) {
+      .then(trigger)
+      .catch(function(err) {
         console.log(err.stack);
       });
   }
 
 });
-
-/*******************************************
- *                 Picture                 *
- *******************************************/
-var PictureActions = Reflux.createActions([
-  'load'
-]);
 
 var PictureStore = Reflux.createStore({
   listenables: [PictureActions],
@@ -48,22 +58,16 @@ var PictureStore = Reflux.createStore({
       args.push(arguments[i]);
     }
 
+    var trigger = this.trigger.bind(this);
+
     connector.getPicture.apply(connector, args)
-      .then(function(res) {
-        this.trigger(res);
-      }).catch(function(err) {
+      .then(trigger)
+      .catch(function(err) {
         console.log(err.stack);
       });
   }
 
 });
-
-/******************************************
- *                Schedule                *
- ******************************************/
-var ScheduleActions = Reflux.createActions([
-  'load'
-]);
 
 var ScheduleStore = Reflux.createStore({
   listenables: [ScheduleActions],
@@ -77,21 +81,15 @@ var ScheduleStore = Reflux.createStore({
       args.push(arguments[i]);
     }
 
+    var trigger = this.trigger.bind(this);
+
     connector.getSchedule.apply(connector, args)
-      .then(function(res) {
-        this.trigger(res);
-      }).catch(function(err) {
+      .then(trigger).catch(function(err) {
         console.log(err.stack);
       });
   }
-});
 
-/******************************************
- *              Notification              *
- ******************************************/
-var NotificationActions = Reflux.createActions([
-  'load'
-]);
+});
 
 var NotificationStore = Reflux.createStore({
   listenables: [NotificationActions],
@@ -105,22 +103,15 @@ var NotificationStore = Reflux.createStore({
       args.push(arguments[i]);
     }
 
+    var trigger = this.trigger.bind(this);
+
     connector.getNotifications.apply(connector, args)
-      .then(function(res) {
-        this.trigger(res);
-      }).catch(function(err) {
+      .then(trigger)
+      .catch(function(err) {
         console.log(err.stack);
       });
   }
 });
-
-/*******************************************
- *                  Event                  *
- *******************************************/
-var EventActions = Reflux.createActions([
-  'load',
-  'changeReadStatus'
-]);
 
 var EventStore = Reflux.createStore({
   listenables: [EventActions],
@@ -134,10 +125,11 @@ var EventStore = Reflux.createStore({
       args.push(arguments[i]);
     }
 
+    var trigger = this.trigger.bind(this);
+
     connector.getEvents.apply(connector, args)
-      .then(function(res) {
-        this.trigger(res);
-      }).catch(function(err) {
+      .then(trigger)
+      .catch(function(err) {
         console.log(err.stack);
       });
   },
@@ -151,24 +143,27 @@ var EventStore = Reflux.createStore({
       args.push(arguments[i]);
     }
 
+    var onLoad = this.onLoad.call(this, connector);
+
     connector.changeReadStatus.apply(connector, args)
-      .then(function() {
-        this.onLoad(connector);
-      }).catch(function(err) {
+      .then(onLoad)
+      .catch(function(err) {
         console.log(err.stack);
       });
   }
 });
 
+
+
 module.exports = {
-  EventStore,
-  EventActions,
-  NotificationStore,
-  NotificationActions,
-  ProfileStore,
-  ProfileActions,
-  PictureStore,
-  PictureActions,
-  ScheduleStore,
-  ScheduleActions
+  'ProfileActions': ProfileActions,
+  'ProfileStore': ProfileStore,
+  'PictureActions': PictureActions,
+  'PictureStore': PictureStore,
+  'ScheduleActions': ScheduleActions,
+  'ScheduleStore': ScheduleStore,
+  'NotificationActions': NotificationActions,
+  'NotificationStore': NotificationStore,
+  'EventActions': EventActions,
+  'EventStore': EventStore
 };

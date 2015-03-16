@@ -1,6 +1,6 @@
 {
   "name": "black-lion",
-  "version": "0.2.1-alpha",
+  "version": "0.2.15",
   "description": "Core of Arus",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/arus/black-lion",
   "dependencies": {
-    "reflux": "^0.2.5"
+    "reflux": "^0.2.5",
+    "underscore": "^1.8.2"
   }
 }
