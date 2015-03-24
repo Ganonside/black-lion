@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "set NODE_ENV=test&& webpack --progress --colors --watch",
-    "test": "jest"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,7 @@
     "reflux": "^0.2.5"
   },
   "devDependencies": {
-    "jest-cli": "^0.4.0",
-    "arus-ps-connector": "^0.6.1-alpha",
+    "arus-ps-connector": "^0.7.3-alpha",
     "babel-core": "^4.7.12",
     "babel-loader": "^4.2.0",
     "chai": "^2.1.2",

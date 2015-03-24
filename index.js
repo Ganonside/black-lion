@@ -127,8 +127,6 @@ var EventStore = Reflux.createStore({
 
     var trigger = this.trigger.bind(this);
 
-    debugger;
-
     connector.getEvents.apply(connector, args)
       .then(trigger)
       .catch(function(err) {
@@ -145,8 +143,7 @@ var EventStore = Reflux.createStore({
       args.push(arguments[i]);
     }
 
-    debugger;
-    // var onLoad = this.onLoad.call(this, connector);
+    var onLoad = this.onLoad.call(this, connector);
 
     connector.changeReadStatus.apply(connector, args.slice(1))
       .then(this.onLoad.apply(this, args))
@@ -169,9 +166,4 @@ var modules = {
   'EventStore': EventStore
 };
 
-if (__ENV__ === 'test') {
-  modules.Connector = require('arus-ps-connector');
-}
-console.log(__ENV__);
-console.log('Exporting:');
 module.exports = modules;
