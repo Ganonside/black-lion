@@ -1,6 +1,6 @@
 {
   "name": "black-lion",
-  "version": "0.2.28",
+  "version": "0.2.29",
   "description": "Core of Arus",
   "main": "index.js",
   "scripts": {
