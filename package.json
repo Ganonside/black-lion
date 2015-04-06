@@ -1,10 +1,11 @@
 {
   "name": "black-lion",
-  "version": "0.2.29",
+  "version": "0.2.30",
   "description": "Core of Arus",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "set NODE_ENV=test&& webpack --progress --colors --watch",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,16 @@
   },
   "homepage": "https://github.com/arus/black-lion",
   "dependencies": {
-    "reflux": "^0.2.5",
-    "underscore": "^1.8.2"
+    "reflux": "^0.2.5"
+  },
+  "devDependencies": {
+    "arus-ps-connector": "^0.7.3-alpha",
+    "babel-core": "^4.7.12",
+    "babel-eslint": "^2.0.2",
+    "babel-loader": "^4.2.0",
+    "chai": "^2.1.2",
+    "convict": "^0.6.1",
+    "eslint": "^0.18.0",
+    "webpack": "^1.7.3"
   }
 }

@@ -139,7 +139,7 @@ var EventStore = Reflux.createStore({
    */
   onChangeReadStatus: function(connector) {
     var args = [];
-    for (var i = 1; i < arguments.length; i++) {
+    for (var i = 0; i < arguments.length; i++) {
       args.push(arguments[i]);
     }
 
@@ -150,9 +150,7 @@ var EventStore = Reflux.createStore({
   }
 });
 
-
-
-module.exports = {
+var modules = {
   'ProfileActions': ProfileActions,
   'ProfileStore': ProfileStore,
   'PictureActions': PictureActions,
@@ -164,3 +162,5 @@ module.exports = {
   'EventActions': EventActions,
   'EventStore': EventStore
 };
+
+module.exports = modules;
