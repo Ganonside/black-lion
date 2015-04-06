@@ -12,6 +12,9 @@ var PictureActions = Reflux.createActions([
 var ScheduleActions = Reflux.createActions([
   'load'
 ]);
+var SubjectActions = Reflux.createActions([
+  'load'
+]);
 var NotificationActions = Reflux.createActions([
   'load'
 ]);
@@ -91,6 +94,25 @@ var ScheduleStore = Reflux.createStore({
 
 });
 
+var SubjectStore = Reflux.createStore({
+  listenables: [SubjectActions],
+
+  onLoad: function(connector) {
+    var args = [];
+    for (var i = 1; i < arguments.length; ++i) {
+      args.push(arguments[i]);
+    }
+
+    var trigger = this.trigger.bind(this);
+
+    connector.getSubjects.apply(connector, args)
+      .then(trigger)
+      .catch(function(err) {
+        console.log(err.stack);
+      });
+  }
+});
+
 var NotificationStore = Reflux.createStore({
   listenables: [NotificationActions],
 
@@ -157,6 +179,8 @@ var modules = {
   'PictureStore': PictureStore,
   'ScheduleActions': ScheduleActions,
   'ScheduleStore': ScheduleStore,
+  'SubjectActions': SubjectActions,
+  'SubjectStore': SubjectStore,
   'NotificationActions': NotificationActions,
   'NotificationStore': NotificationStore,
   'EventActions': EventActions,
