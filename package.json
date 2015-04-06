@@ -26,9 +26,11 @@
   "devDependencies": {
     "arus-ps-connector": "^0.7.3-alpha",
     "babel-core": "^4.7.12",
+    "babel-eslint": "^2.0.2",
     "babel-loader": "^4.2.0",
     "chai": "^2.1.2",
     "convict": "^0.6.1",
+    "eslint": "^0.18.0",
     "webpack": "^1.7.3"
   }
 }

@@ -30,3 +30,7 @@ build/
 
 development.json
 test.json
+
+# Linting
+.eslintrc
+.eslintignore
