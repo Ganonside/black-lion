@@ -1,7 +1,7 @@
 import chai from 'chai';
 import { SubjectStore, SubjectActions } from '../index.js';
 
-chai.should();
+let should = chai.should();
 
 describe('Subjects', () => {
   let connector = {
@@ -23,6 +23,33 @@ describe('Subjects', () => {
   describe('SubjectStore#onLoad', () => {
     it('should trigger the listener', (done) => {
       SubjectStore.onLoad(connector, done);
+    });
+
+    it('should throw a TypeError', () => {
+      let conn = function() {};
+      /* eslint-disable */
+      should.Throw(SubjectStore.onLoad.bind(SubjectStore, conn), TypeError);
+      /* eslint-enable */
+    });
+  });
+
+  describe('SubjectStore#onCustomLoad', () => {
+    it('should trigger the listener', (done) => {
+      SubjectStore.onCustomLoad(connector, 'getSubjects', done);
+    });
+
+    it('should throw a TypeError', () => {
+      let conn = function() {};
+      /* eslint-disable */
+      should.Throw(SubjectStore.onCustomLoad.bind(SubjectStore, conn, 'funcName'), TypeError);
+      /* eslint-enable */
+    });
+
+    it('should throw a TypeError', () => {
+      let func = function() {};
+      /* eslint-disable */
+      should.Throw(SubjectStore.onCustomLoad.bind(SubjectStore, connector, func), TypeError);
+      /* eslint-enable */
     });
   });
 

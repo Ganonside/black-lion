@@ -4,25 +4,32 @@ var Reflux = require('reflux');
  *                 Actions                 *
  *******************************************/
 var ProfileActions = Reflux.createActions([
-  'load'
+  'load',
+  'customLoad'
 ]);
 var PictureActions = Reflux.createActions([
-  'load'
+  'load',
+  'customLoad'
 ]);
 var ScheduleActions = Reflux.createActions([
-  'load'
+  'load',
+  'customLoad'
 ]);
 var SubjectActions = Reflux.createActions([
-  'load'
+  'load',
+  'customLoad'
 ]);
 var CourseActions = Reflux.createActions([
-  'load'
+  'load',
+  'customLoad'
 ]);
 var NotificationActions = Reflux.createActions([
-  'load'
+  'load',
+  'customLoad'
 ]);
 var EventActions = Reflux.createActions([
   'load',
+  'customLoad',
   'changeReadStatus'
 ]);
 
@@ -36,20 +43,17 @@ var ProfileStore = Reflux.createStore({
    * Fired when ProfileActions.load is called
    */
   onLoad: function(connector) {
-    var args = [];
+    var args = [connector, 'getProfile'];
     for (var i = 1; i < arguments.length; i++) {
       args.push(arguments[i]);
     }
 
-    var trigger = this.trigger.bind(this);
+    load.apply(this, args);
+  },
 
-    connector.getProfile.apply(connector, args)
-      .then(trigger)
-      .catch(function(err) {
-        console.log(err.stack);
-      });
+  onCustomLoad: function(connector, funcName) {
+    load.apply(this, arguments);
   }
-
 });
 
 var PictureStore = Reflux.createStore({
@@ -59,20 +63,17 @@ var PictureStore = Reflux.createStore({
    * Fired when PictureActions.load is called
    */
   onLoad: function(connector) {
-    var args = [];
+    var args = [connector, 'getPicture'];
     for (var i = 1; i < arguments.length; i++) {
       args.push(arguments[i]);
     }
 
-    var trigger = this.trigger.bind(this);
+    load.apply(this, args);
+  },
 
-    connector.getPicture.apply(connector, args)
-      .then(trigger)
-      .catch(function(err) {
-        console.log(err.stack);
-      });
+  onCustomLoad: function(connector, funcName) {
+    load.apply(this, arguments);
   }
-
 });
 
 var ScheduleStore = Reflux.createStore({
@@ -82,37 +83,33 @@ var ScheduleStore = Reflux.createStore({
    * Fired when ScheduleActions.load is called
    */
   onLoad: function(connector) {
-    var args = [];
+    var args = [connector, 'getSchedule'];
     for (var i = 1; i < arguments.length; i++) {
       args.push(arguments[i]);
     }
 
-    var trigger = this.trigger.bind(this);
+    load.apply(this, args);
+  },
 
-    connector.getSchedule.apply(connector, args)
-      .then(trigger).catch(function(err) {
-        console.log(err.stack);
-      });
+  onCustomLoad: function(connector, funcName) {
+    load.apply(this, arguments);
   }
-
 });
 
 var SubjectStore = Reflux.createStore({
   listenables: [SubjectActions],
 
   onLoad: function(connector) {
-    var args = [];
+    var args = [connector, 'getSubjects'];
     for (var i = 1; i < arguments.length; ++i) {
       args.push(arguments[i]);
     }
 
-    var trigger = this.trigger.bind(this);
+    load.apply(this, args);
+  },
 
-    connector.getSubjects.apply(connector, args)
-      .then(trigger)
-      .catch(function(err) {
-        console.log(err.stack);
-      });
+  onCustomLoad: function(connector, funcName) {
+    load.apply(this, arguments);
   }
 });
 
@@ -120,18 +117,16 @@ var CourseStore = Reflux.createStore({
   listenables: [CourseActions],
 
   onLoad: function(connector) {
-    var args = [];
+    var args = [connector, 'getCourses'];
     for (var i = 1; i < arguments.length; ++i) {
       args.push(arguments[i]);
     }
 
-    var trigger = this.trigger.bind(this);
+    load.apply(this, args);
+  },
 
-    connector.getCourses.apply(connector, args)
-      .then(trigger)
-      .catch(function(err) {
-        console.log(err.stack);
-      });
+  onCustomLoad: function(connector, funcName) {
+    load.apply(this, arguments);
   }
 });
 
@@ -142,18 +137,16 @@ var NotificationStore = Reflux.createStore({
    * Fired when NotificationActions.load is called
    */
   onLoad: function(connector) {
-    var args = [];
+    var args = [connector, 'getNotifications'];
     for (var i = 1; i < arguments.length; i++) {
       args.push(arguments[i]);
     }
 
-    var trigger = this.trigger.bind(this);
+    load.apply(this, args);
+  },
 
-    connector.getNotifications.apply(connector, args)
-      .then(trigger)
-      .catch(function(err) {
-        console.log(err.stack);
-      });
+  onCustomLoad: function(connector, funcName) {
+    load.apply(this, arguments);
   }
 });
 
@@ -164,24 +157,26 @@ var EventStore = Reflux.createStore({
    * Fired when EventActions.load is called
    */
   onLoad: function(connector) {
-    var args = [];
+    var args = [connector, 'getEvents'];
     for (var i = 1; i < arguments.length; i++) {
       args.push(arguments[i]);
     }
 
-    var trigger = this.trigger.bind(this);
+    load.apply(this, args);
+  },
 
-    connector.getEvents.apply(connector, args)
-      .then(trigger)
-      .catch(function(err) {
-        console.log(err.stack);
-      });
+  onCustomLoad: function(connector, funcName) {
+    load.apply(this, arguments);
   },
 
   /**
    * Fired when EventActions.changeReadStatus is called
    */
   onChangeReadStatus: function(connector) {
+    if (typeof connector !== 'object') {
+      throw new TypeError('Type of connector is '+typeof connector+'. Expected an object\n\tconnector = '+connector);
+    }
+
     var args = [];
     for (var i = 0; i < arguments.length; i++) {
       args.push(arguments[i]);
@@ -193,6 +188,27 @@ var EventStore = Reflux.createStore({
       });
   }
 });
+
+var load = function(connector, funcName) {
+  if (typeof connector !== 'object') {
+    throw new TypeError('Type of connector is '+typeof connector+'. Expected an object\n\tconnector = '+connector);
+  } else if (typeof funcName !== 'string') {
+    throw new TypeError('Type of funcName is '+typeof funcName+'. Expected a string\n\tfuncName = '+funcName);
+  }
+
+  var args = [];
+  for (var i = 2; i < arguments.length; i++) {
+    args.push(arguments[i]);
+  }
+
+  var trigger = this.trigger.bind(this);
+
+  connector[funcName].apply(connector, args)
+    .then(trigger)
+    .catch(function(err) {
+      console.log(err.stack);
+    });
+};
 
 var modules = {
   'ProfileActions': ProfileActions,

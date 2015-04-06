@@ -1,7 +1,7 @@
 import chai from 'chai';
 import { ScheduleStore, ScheduleActions } from '../index.js';
 
-chai.should();
+let should = chai.should();
 
 describe('Schedule', () => {
   let connector = {
@@ -23,6 +23,33 @@ describe('Schedule', () => {
   describe('ScheduleStore', () => {
     it('should trigger the listener', (done) => {
       ScheduleStore.onLoad(connector, done);
+    });
+
+    it('should throw a TypeError', () => {
+      let conn = function() {};
+      /* eslint-disable */
+      should.Throw(ScheduleStore.onLoad.bind(ScheduleStore, conn), TypeError);
+      /* eslint-enable */
+    });
+  });
+
+  describe('ScheduleStore#onCustomLoad', () => {
+    it('should trigger the listener', (done) => {
+      ScheduleStore.onCustomLoad(connector, 'getSchedule', done);
+    });
+
+    it('should throw a TypeError', () => {
+      let conn = function() {};
+      /* eslint-disable */
+      should.Throw(ScheduleStore.onCustomLoad.bind(ScheduleStore, conn, 'funcName'), TypeError);
+      /* eslint-enable */
+    });
+
+    it('should throw a TypeError', () => {
+      let func = function() {};
+      /* eslint-disable */
+      should.Throw(ScheduleStore.onCustomLoad.bind(ScheduleStore, connector, func), TypeError);
+      /* eslint-enable */
     });
   });
 

@@ -1,7 +1,7 @@
 import chai from 'chai';
 import { EventStore, EventActions } from '../index.js';
 
-chai.should();
+let should = chai.should();
 
 describe('Event', () => {
   let connector = {
@@ -28,6 +28,33 @@ describe('Event', () => {
     it('should trigger the listener', (done) => {
       EventStore.onLoad(connector, done);
     });
+
+    it('should throw a TypeError', () => {
+      let conn = function() {};
+      /* eslint-disable */
+      should.Throw(EventStore.onLoad.bind(EventStore, conn), TypeError);
+      /* eslint-enable */
+    });
+  });
+
+  describe('EventStore#onCustomLoad', () => {
+    it('should trigger the listener', (done) => {
+      EventStore.onCustomLoad(connector, 'getEvents', done);
+    });
+
+    it('should throw a TypeError', () => {
+      let conn = function() {};
+      /* eslint-disable */
+      should.Throw(EventStore.onCustomLoad.bind(EventStore, conn, 'funcName'), TypeError);
+      /* eslint-enable */
+    });
+
+    it('should throw a TypeError', () => {
+      let func = function() {};
+      /* eslint-disable */
+      should.Throw(EventStore.onCustomLoad.bind(EventStore, connector, func), TypeError);
+      /* eslint-enable */
+    });
   });
 
   describe('EventActions#load', () => {
@@ -39,6 +66,13 @@ describe('Event', () => {
   describe.skip('EventStore#onChangeReadStatus', () => {
     it('should trigger #onLoad', (done) => {
       EventStore.onChangeReadStatus(connector, done);
+    });
+
+    it('should throw a TypeError', () => {
+      let conn = function() {};
+      /* eslint-disable */
+      should.Throw(EventStore.onChangeReadStatus.bind(EventStore, conn), TypeError);
+      /* eslint-enable */
     });
   });
 
