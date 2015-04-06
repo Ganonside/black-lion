@@ -15,6 +15,9 @@ var ScheduleActions = Reflux.createActions([
 var SubjectActions = Reflux.createActions([
   'load'
 ]);
+var CourseActions = Reflux.createActions([
+  'load'
+]);
 var NotificationActions = Reflux.createActions([
   'load'
 ]);
@@ -113,6 +116,25 @@ var SubjectStore = Reflux.createStore({
   }
 });
 
+var CourseStore = Reflux.createStore({
+  listenables: [CourseActions],
+
+  onLoad: function(connector) {
+    var args = [];
+    for (var i = 1; i < arguments.length; ++i) {
+      args.push(arguments[i]);
+    }
+
+    var trigger = this.trigger.bind(this);
+
+    connector.getCourses.apply(connector, args)
+      .then(trigger)
+      .catch(function(err) {
+        console.log(err.stack);
+      });
+  }
+});
+
 var NotificationStore = Reflux.createStore({
   listenables: [NotificationActions],
 
@@ -181,6 +203,8 @@ var modules = {
   'ScheduleStore': ScheduleStore,
   'SubjectActions': SubjectActions,
   'SubjectStore': SubjectStore,
+  'CourseActions': CourseActions,
+  'CourseStore': CourseStore,
   'NotificationActions': NotificationActions,
   'NotificationStore': NotificationStore,
   'EventActions': EventActions,
