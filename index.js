@@ -32,6 +32,7 @@ var EventActions = Reflux.createActions([
   'customLoad',
   'changeReadStatus'
 ]);
+var LovActions = Reflux.createActions(['load', 'customLoad']);
 
 /******************************************
  *                 Stores                 *
@@ -189,6 +190,26 @@ var EventStore = Reflux.createStore({
   }
 });
 
+var LovStore = Reflux.createStore({
+  listenables: [LovActions],
+
+  onLoad: function(connector) {
+    var args = [connector, 'getLovs'];
+    for (var i = 1; i < arguments.length; i++) {
+      args.push(arguments[i]);
+    }
+
+    load.apply(this, args);
+  },
+
+  onCustomLoad: function(connector, funcName) {
+    load.apply(this, arguments);
+  }
+});
+
+/**
+ * Dynamic load function that is used in all the above stores to retrieve data
+ */
 var load = function(connector, funcName) {
   if (typeof connector !== 'object') {
     throw new TypeError('Type of connector is '+typeof connector+'. Expected an object\n\tconnector = '+connector);
@@ -202,7 +223,7 @@ var load = function(connector, funcName) {
   }
 
   var trigger = this.trigger.bind(this);
-
+  
   connector[funcName].apply(connector, args)
     .then(trigger)
     .catch(function(err) {
@@ -210,7 +231,7 @@ var load = function(connector, funcName) {
     });
 };
 
-var modules = {
+module.exports = {
   'ProfileActions': ProfileActions,
   'ProfileStore': ProfileStore,
   'PictureActions': PictureActions,
@@ -224,7 +245,7 @@ var modules = {
   'NotificationActions': NotificationActions,
   'NotificationStore': NotificationStore,
   'EventActions': EventActions,
-  'EventStore': EventStore
+  'EventStore': EventStore,
+  'LovActions': LovActions,
+  'LovStore': LovStore
 };
-
-module.exports = modules;
