@@ -179,7 +179,7 @@ var EventStore = Reflux.createStore({
     }
 
     var args = [];
-    for (var i = 0; i < arguments.length; i++) {
+    for (var i = 1; i < arguments.length; i++) {
       args.push(arguments[i]);
     }
 
@@ -223,7 +223,7 @@ var load = function(connector, funcName) {
   }
 
   var trigger = this.trigger.bind(this);
-  
+
   connector[funcName].apply(connector, args)
     .then(trigger)
     .catch(function(err) {
