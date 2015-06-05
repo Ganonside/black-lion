@@ -183,7 +183,7 @@ var EventStore = Reflux.createStore({
       args.push(arguments[i]);
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise(function(resolve, reject) {
       connector.changeReadStatus.apply(this, args)
         .then(resolve)
         .catch(reject);
