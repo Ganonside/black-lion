@@ -63,9 +63,12 @@ describe('Event', () => {
     });
   });
 
-  describe.skip('EventStore#onChangeReadStatus', () => {
+  describe('EventStore#onChangeReadStatus', () => {
     it('should trigger #onLoad', (done) => {
-      EventStore.onChangeReadStatus(connector, done);
+      EventStore.onChangeReadStatus(connector)
+        .then((res) => {
+          EventStore.onLoad(connector, done);
+        });
     });
 
     it('should throw a TypeError', () => {
