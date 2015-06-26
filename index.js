@@ -33,6 +33,9 @@ var EventActions = Reflux.createActions([
   'changeReadStatus'
 ]);
 var LovActions = Reflux.createActions(['load', 'customLoad']);
+var UCIDActions = Reflux.createActions({
+  'lookup': {children: ['completed', 'failed']}
+});
 
 /******************************************
  *                 Stores                 *
@@ -209,6 +212,71 @@ var LovStore = Reflux.createStore({
   }
 });
 
+var UCIDLookupStore = Reflux.createStore({
+  //{status: "Success", providedIdType: "6+2 ID", emplid: "100000013", firstName: "Donald", lastName: "Osmond"}
+
+  listenables: [UCIDActions],
+
+  init: function(){
+    this.status = '';
+    this.emplid = '';
+    this.firstName = '';
+    this.lastName ='';
+    this.listenTo(UCIDActions.lookup,this.onLookupUCID);
+  },
+
+  getInitialState: function() {
+        return {
+          status: "",
+          emplid: "",
+          firstName: "",
+          lastName: ""
+        }
+  },
+
+  /**
+   * Fired when LookupUCID is called
+   */
+   onLookupUCID: function(connector) {
+
+    if (typeof connector !== 'object') {
+      throw new TypeError('Type of connector is '+typeof connector+'. Expected an object\n\tconnector = '+connector);
+    }
+
+    var args = [];
+    for (var i = 1; i < arguments.length; i++) {
+      args.push(arguments[i]);
+    }
+
+    var p = new Promise(function(resolve, reject) {
+      connector.lookupUCID.apply(this, args)
+        .then(resolve)
+        .catch(reject);
+    });
+
+    //promise is resolved
+    p.then(function(val){
+      this.status=val.status;
+      this.emplid=val.emplid;
+      this.firstName=val.firstName;
+      this.lastName=val.lastName;
+
+      //complete async action
+      UCIDActions.lookup.completed({
+        status: this.status,
+        emplid: this.emplid,
+        firstName: this.firstName,
+        lastName: this.lastName
+      });
+    });
+  },
+
+  onLookupCompleted: function(data){
+    this.trigger(data);
+  }
+
+});
+
 /**
  * Dynamic load function that is used in all the above stores to retrieve data
  */
@@ -249,5 +317,7 @@ module.exports = {
   'EventActions': EventActions,
   'EventStore': EventStore,
   'LovActions': LovActions,
-  'LovStore': LovStore
+  'LovStore': LovStore,
+  'UCIDLookupStore': UCIDLookupStore,
+  'UCIDActions': UCIDActions
 };
