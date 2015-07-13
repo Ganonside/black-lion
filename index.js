@@ -301,10 +301,15 @@ var load = function(connector, funcName) {
   connector[funcName].apply(connector, args)
     .then(trigger)
     .catch(function(err) {
-      console.log('*** Error Caught in BlackLion ***');
-      console.log('\tConnector Used: ', connector.constructor.name);
+      console.log('\n*** Error Caught in BlackLion ***');
+
+      if (connector.name) {
+        console.log('\tConnector Used: ', connector.name);
+      } else {
+        console.log('\tConnector Used: (no \'name\' field in connector object)');
+      }
+      
       console.log('\tFunction Called: ', funcName);
-      console.log('');
       console.log(err.stack);
     });
 };
