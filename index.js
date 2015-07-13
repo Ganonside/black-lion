@@ -284,6 +284,7 @@ var UCIDLookupStore = Reflux.createStore({
  * Dynamic load function that is used in all the above stores to retrieve data
  */
 var load = function(connector, funcName) {
+
   if (typeof connector !== 'object') {
     throw new TypeError('Type of connector is '+typeof connector+'. Expected an object\n\tconnector = '+connector);
   } else if (typeof funcName !== 'string') {
@@ -300,6 +301,10 @@ var load = function(connector, funcName) {
   connector[funcName].apply(connector, args)
     .then(trigger)
     .catch(function(err) {
+      console.log('*** Error Caught in BlackLion ***');
+      console.log('\tConnector Used: ', connector.constructor.name);
+      console.log('\tFunction Called: ', funcName);
+      console.log('');
       console.log(err.stack);
     });
 };
