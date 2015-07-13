@@ -32,9 +32,12 @@ var EventActions = Reflux.createActions([
   'customLoad',
   'changeReadStatus'
 ]);
-var LovActions = Reflux.createActions(['load', 'customLoad']);
+var LovActions = Reflux.createActions([
+  'load',
+  'customLoad'
+]);
 var UCIDActions = Reflux.createActions({
-  'lookup': {children: ['completed', 'failed']}
+  'lookup': { children: ['completed', 'failed'] }
 });
 
 /******************************************
